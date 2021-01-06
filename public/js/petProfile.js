@@ -9,8 +9,8 @@ const PetFormHandler = async (event) => {
   const microchip = document.querySelector('#microchip').value.trim();
 
   if (petName && species && breed && birthdate) {
-    console.log('made it');
-    const response = await fetch(`api/pet`, {
+    console.log(petname);
+    const response = await fetch(`/api/pet`, {
       method: 'POST',
       body: JSON.stringify({
         petname,
@@ -24,7 +24,6 @@ const PetFormHandler = async (event) => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
 
     if (response.ok) {
       document.location.replace('/');

@@ -9,14 +9,18 @@ router.get('/pet', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const dbPetData = await Pet.create({
-      petname: req.body.petname,
-      nickname: req.body.nickname,
-      species: req.body.species,
-      breed: req.body.breed,
-      birthdate: req.body.birthdate,
-      microchip: req.body.microchip,
-    });
+    console.log(req.body);
+    if (req.body) {
+      const dbPetData = await Pet.create({
+        petname: req.body.petname,
+        nickname: req.body.nickname,
+        species: req.body.species,
+        breed: req.body.breed,
+        birthdate: req.body.birthdate,
+        microchip: req.body.microchip,
+      });
+    }
+    console.log(req.body.petname);
     req.session.save(() => {
       req.session.user_id = dbPetData.id;
       // req.session.loggedIn = true;
@@ -44,40 +48,7 @@ router.post('/', async (req, res) => {
 // });
 
 //update profile
-router.put('/', async (req, res) => {
-  try {
-    console.log(req.body);
-    const petData = await Pet.create({
-      ...req.body,
-      user_id: req.session.user_id,
-    });
-    //res.json(petData)
-    res.render(petForm, { pet: petData });
-  } catch (err) {
-    res.json(err);
-  }
-});
 
 //delete profile
-
-router.delete('/:id', async (req, res) => {
-  try {
-    const petData = await Pet.destroy({
-      where: {
-        id: req.params.id,
-        user_id: req.session.user_id,
-      },
-    });
-
-    if (!petData) {
-      res.status(404).json({ message: 'No pet found with this id!' });
-      return;
-    }
-
-    res.status(200).json(petData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;
