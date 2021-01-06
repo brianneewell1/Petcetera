@@ -10,17 +10,14 @@ router.post('/', async (req, res) => {
   try {
     console.log(req.body);
 
-    const dbPetData = await Pet.create(
-      {
-        petname: req.body.petname,
-        nickname: req.body.nickname,
-        species: req.body.species,
-        breed: req.body.breed,
-        age: req.body.age,
-        microchip: req.body.microchip,
-      },
-      console.log(dbPetData)
-    );
+    const dbPetData = await Pet.create({
+      petname: req.body.petname,
+      nickname: req.body.nickname,
+      species: req.body.species,
+      breed: req.body.breed,
+      age: req.body.age,
+      microchip: req.body.microchip,
+    });
 
     req.session.save(() => {
       req.session.user_id = dbPetData.id;
