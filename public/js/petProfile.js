@@ -1,14 +1,15 @@
 const PetFormHandler = async (event) => {
   event.preventDefault();
 
-  const petName = document.querySelector('#petname').value.trim();
+  const petname = document.querySelector('#petname').value.trim();
+  console.log(petname);
   const nickname = document.querySelector('#nickname').value.trim();
   const species = document.querySelector('#species').value.trim();
   const breed = document.querySelector('#breed').value.trim();
-  const birthdate = document.querySelector('#birthdate').value.trim();
+  const age = document.querySelector('#age').value.trim();
   const microchip = document.querySelector('#microchip').value.trim();
 
-  if (petName && species && breed && birthdate) {
+  if (petname && species && breed && age) {
     console.log(petname);
     const response = await fetch(`/api/pet`, {
       method: 'POST',
@@ -17,7 +18,7 @@ const PetFormHandler = async (event) => {
         nickname,
         species,
         breed,
-        birthdate,
+        age,
         microchip,
       }),
       headers: {

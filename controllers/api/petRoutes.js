@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { Pet } = require('../../models');
-//const { response } = require('express');
 
 router.get('/pet', (req, res) => {
   console.log('PET ROUTE FORM');
@@ -10,17 +9,19 @@ router.get('/pet', (req, res) => {
 router.post('/', async (req, res) => {
   try {
     console.log(req.body);
-    if (req.body) {
-      const dbPetData = await Pet.create({
+
+    const dbPetData = await Pet.create(
+      {
         petname: req.body.petname,
         nickname: req.body.nickname,
         species: req.body.species,
         breed: req.body.breed,
-        birthdate: req.body.birthdate,
+        age: req.body.age,
         microchip: req.body.microchip,
-      });
-    }
-    console.log(req.body.petname);
+      },
+      console.log(dbPetData)
+    );
+
     req.session.save(() => {
       req.session.user_id = dbPetData.id;
       // req.session.loggedIn = true;
